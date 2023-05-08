@@ -13,10 +13,10 @@ public class App {
 
 		int sum1 = calculator.add(10, 20);
 		System.out.println("Sum : " + sum1);
-		
-		int sum2 = calculator.add(10, 20, 30);
+
+		int sum2 = calculator.add(10, 21);
 		System.out.println("Sum : " + sum2);
-		
+
 		int sub = calculator.substract(10, 20);
 		System.out.println("Substraction : " + sub);
 	}
