@@ -6,12 +6,22 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 
-	<bean id="cal" class="com.tsr.beans.Calculator"/>
-	<bean id="logAspect" class="com.tsr.aspects.LoggingAspect"/>
-	
+	<bean id="cal" class="com.tsr.beans.Calculator" />
+	<bean id="logAspect" class="com.tsr.aspects.LoggingAspect" />
+	<bean id="cache" class="com.tsr.beans.Cache"
+		factory-method="getInstance" />
+	<bean id="cacheAspect" class="com.tsr.aspects.CacheAspect">
+		<property name="cache" ref="cache"></property>
+	</bean>
+
 	<aop:config>
-		<aop:aspect ref="logAspect">
-			<aop:around method="log" pointcut="execution(* com.tsr.beans.Calculator.add(..))"/>
+		<aop:aspect ref="logAspect" order="2">
+			<aop:around method="log"
+				pointcut="execution(* com.tsr.beans.Calculator.add(..))" />
+		</aop:aspect>
+		<aop:aspect ref="cacheAspect" order="1">
+			<aop:around method="cache"
+				pointcut="execution(* com.tsr.beans.Calculator.add(..))" />
 		</aop:aspect>
 	</aop:config>
 </beans>
